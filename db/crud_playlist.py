@@ -4,6 +4,7 @@ from model.playlist import Playlist
 from db.db_manager import DBManager
 from util.common_util import now
 
+#Todo: Further improvement -> Introduce repository classes for each model (UserRepository, PlaylistRepository, TrackRepository)
 
 def upsert_playlists(db: DBManager, playlists: List[Playlist]) -> List[Playlist]:
     current_time = now()

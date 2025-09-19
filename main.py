@@ -3,10 +3,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from db.db import Database
 from db.db_manager import DBManager
-from db import crud_user, crud_playlist, crud_track
 from controller import user_controller, playlist_controller, track_controller
-
-# --- FastAPI app ---
 app = FastAPI(title="Shared Playlist Service")
 
 # --- DB Manager Setup ---

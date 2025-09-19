@@ -7,17 +7,15 @@ from db import crud_playlist
 router = APIRouter()
 db: DBManager = None  # Will be injected from main.py
 
-# **Add a simple route to list all playlists**
 @router.get("/")
 def list_playlists():
-    return crud_playlist.get_playlists_since(db )
+    return crud_playlist.get_playlists_since(db)
 
-# Upsert multiple playlists
 @router.post("/batch")
 def upsert_playlists(playlists: List[Playlist]):
     return crud_playlist.upsert_playlists(db, playlists)
 
-# Get playlists updated since a certain time
+
 @router.get("/sync")
 def sync_playlists(since: Optional[str] = None):
     return crud_playlist.get_playlists_since(db)
