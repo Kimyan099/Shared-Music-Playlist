@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from db.db import Database
 from db.db_manager import DBManager
 from db import crud_user, crud_playlist, crud_track
@@ -8,11 +10,13 @@ from util.common_util import now
 import uuid
 
 
-# --- Connect to the persistent DB ---
-database = Database("playlist.db")
+# Always resolve relative to project root
+BASE_DIR = Path(__file__).resolve().parent.parent  # this points to /Shared-Music-Playlist
+DB_FILE = BASE_DIR / "playlist.db"
+
+database = Database(DB_FILE)
 db_manager = DBManager(database)
 
-# --- Inject DB manager into CRUD ---
 crud_user.db = db_manager
 crud_playlist.db = db_manager
 crud_track.db = db_manager

@@ -6,7 +6,7 @@ from typing import Iterator
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = BASE_DIR / "playlist.db"
-MIGRATIONS_DIR = BASE_DIR / "migrations"
+MIGRATIONS_DIR = BASE_DIR / "db" / "migrations"
 
 class Database:
     def __init__(self, db_path: Path = DB_PATH, migrations_dir: Path = MIGRATIONS_DIR):
@@ -39,6 +39,3 @@ class Database:
             for sqlfile in sql_files:
                 cursor.executescript(sqlfile.read_text(encoding="utf-8"))
             conn.commit()
-
-# Global instance
-db = Database()

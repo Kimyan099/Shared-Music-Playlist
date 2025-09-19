@@ -1,33 +1,31 @@
-PRAGMA foreign_keys = ON;
-
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
-    username TEXT UNIQUE,
+    username TEXT NOT NULL,
     createdAt TEXT,
     updatedAt TEXT,
-    deleted INTEGER
+    deleted INTEGER DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS playlists (
     id TEXT PRIMARY KEY,
-    name TEXT,
-    createdBy TEXT,
+    name TEXT NOT NULL,
+    createdBy TEXT NOT NULL,
     createdAt TEXT,
     updatedAt TEXT,
-    deleted INTEGER,
-    FOREIGN KEY (createdBy) REFERENCES users(id)
+    deleted INTEGER DEFAULT 0,
+    FOREIGN KEY(createdBy) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS tracks (
     id TEXT PRIMARY KEY,
-    playlistId TEXT,
-    title TEXT,
+    playlistId TEXT NOT NULL,
+    title TEXT NOT NULL,
     artist TEXT,
     duration INTEGER,
-    addedBy TEXT,
+    addedBy TEXT NOT NULL,
     createdAt TEXT,
     updatedAt TEXT,
-    deleted INTEGER,
-    FOREIGN KEY (playlistId) REFERENCES playlists(id),
-    FOREIGN KEY (addedBy) REFERENCES users(id)
+    deleted INTEGER DEFAULT 0,
+    FOREIGN KEY(playlistId) REFERENCES playlists(id),
+    FOREIGN KEY(addedBy) REFERENCES users(id)
 );

@@ -1,14 +1,25 @@
 from fastapi import APIRouter
 from typing import List, Optional
 from model.playlist import Playlist
+from db.db_manager import DBManager
 from db import crud_playlist
 
 router = APIRouter()
+db: DBManager = None  # Will be injected from main.py
 
+# **Add a simple route to list all playlists**
+@router.get("/")
+def list_playlists():
+    return crud_playlist.get_playlists_since(db )
+
+# Upsert multiple playlists
 @router.post("/batch")
 def upsert_playlists(playlists: List[Playlist]):
-    return crud_playlist.upsert_playlists(playlists)
+    return crud_playlist.upsert_playlists(db, playlists)
 
+# Get playlists updated since a certain time
 @router.get("/sync")
 def sync_playlists(since: Optional[str] = None):
-    return crud_playlist.get_playlists_since(since)
+    return crud_playlist.get_playlists_since(db)
+
+
