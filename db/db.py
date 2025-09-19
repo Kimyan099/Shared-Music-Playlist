@@ -12,6 +12,9 @@ class Database:
     def __init__(self, db_path: Path = DB_PATH, migrations_dir: Path = MIGRATIONS_DIR):
         self.db_path = str(db_path)
         self.migrations_dir = migrations_dir
+
+        print("[DEBUG] Database path:", self.db_path)
+        print("[DEBUG] Migrations dir:", self.migrations_dir)
         self._init_db()
 
     @contextmanager
